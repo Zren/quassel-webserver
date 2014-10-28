@@ -25,7 +25,6 @@
   background-color: #131313;
 }
 
-
 .irc-message .timestamp { color: #586e75; }
 
 /* Plain        */ .type-1 .nick, .type-1 .message { color: #839496; }
@@ -49,17 +48,17 @@
 
 
 ::-webkit-scrollbar {
-  width: 8px;
   box-shadow: none;
 }
 
 ::-webkit-scrollbar-thumb {
   background-color: rgba(255,255,255,.1);
-  border: 2px solid transparent;
   box-shadow: none;
 }
 
-.network-name { color: #888888; }
+.group-name,
+.user-name,
+.network-name { color: #888888; opacity: 1; }
 
 .channel.off { color: #555555; opacity:1; }
 .channel.on { color: #888888; }
@@ -73,7 +72,7 @@
 #header .btn.logout
 {
   background: #131313;
-  color: #dddddd;
+  color: #888888;
 }
 
 #topic {
@@ -82,7 +81,7 @@
 
 #buffer-pane,
 #nick-pane {
-  background-color: #00212A;
+  background-color: #131313;
 }
 
 
@@ -110,3 +109,9 @@
 .type-1 .nick[data-nickhash="13"] { color: #268BD2; }
 .type-1 .nick[data-nickhash="14"] { color: #2AA198; }
 .type-1 .nick[data-nickhash="15"] { color: #859900; }
+
+#messagebox::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.irc-message a { color: #539FA3; }
