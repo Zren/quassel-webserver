@@ -82,8 +82,25 @@
 #buffer-pane,
 #nick-pane {
   background-color: #131313;
+  position: absolute;
+  height: 100%;
+  z-index: 11; /* The dropdown button is 10 */
 }
 
+#buffer-pane { left: 0; }
+#nick-pane { right: 0; }
+
+#buffer-pane.col-md-2,
+#nick-pane.col-md-2 {
+  min-width: 240px;
+}
+
+
+#center {
+  position: absolute;
+  left: 32px;
+  right: 32px;
+}
 
 .buffer-bottom-bar {
   background-color: #212121;
