@@ -247,6 +247,41 @@ socket.on('reconnect', function() {
 });
 
 $(document).ready(function() {
+	var formatRelativeTimestamp = function(t1, t2) {
+		var n = (t2-t1);
+		var unit = 'ms';
+		if (n >= 1000) { n = n / 1000; unit = 's';
+			if (n >= 60) { n = n / 60; unit = 'm';
+				if (n >= 60) { n = n / 60; unit = 'h';
+					if (n >= 24) { n = n / 24; unit = 'd'; }
+				}
+			}
+		}
+		return Math.floor(n) + unit;
+	};
+	var updateLiveTimestamps = function() {
+		if (window.liveTimestampsTimer) clearTimeout(window.liveTimestampsTimer);
+		console.log('tick');
+		var now = new Date();
+		var mostRecent = 0;
+		$('.live-timestamp').each(function(i, el) {
+			var $el = $(el);
+			var datetime = $el.attr('datetime');
+			datetime = new Date(datetime);
+
+			// Internal code for ticker
+			if (mostRecent && datetime.getTime() > mostRecent) {
+				datetime = datetime.getTime();
+			}
+
+			// Output
+			$el.text(formatRelativeTimestamp(datetime, now));
+		});
+		var wait = now - mostRecent > 60 * 1000 ? 60 * 1000 : 1000;
+		window.liveTimestampsTimer = setTimeout(updateLiveTimestamps, wait);
+	};
+	window.liveTimestampsTimer = setTimeout(updateLiveTimestamps, 1000);
+
 	$(document).on("click", ".expanded", function() {
 		var channel = $(this).data("target");
 		$("#" + channel).css("max-height", "0");
@@ -264,6 +299,7 @@ $(document).ready(function() {
 		var buffer = networks.findBuffer(bufferId);
 		var lastMessageId = Views.showBuffer(buffer);
 		socket.emit('markBufferAsRead', buffer.id, lastMessageId);
+		updateLiveTimestamps();
 	});
 
 	$(document).on("click", ".add-channel", function() {
@@ -369,6 +405,7 @@ $(document).ready(function() {
 				if ($(".backlog").scrollTop() === 0) {
 					loadingMoreBacklogs[''+bufferId] = true;
 					socket.emit('moreBacklogs', bufferId, firstMessage);
+					updateLiveTimestamps();
 				}
 			}
 		}
