@@ -1,0 +1,122 @@
+.buffer-container {
+  overflow-x: hidden;
+}
+  
+.network, .channel, .user, .user-group {
+  white-space: nowrap;
+  display: block;
+}
+
+.network-name, .channel-name, .user-name, .group-name {
+  font-family: consolas;
+  text-overflow: ellipsis;
+}
+
+.backlog {
+  background-color: #00212A;
+  font-family: consolas;
+}
+
+#header {
+  background-color: #131313;
+}
+
+.buffer-container {
+  background-color: #131313;
+}
+
+.irc-message .timestamp { color: #586e75; }
+
+/* Plain        */ .type-1 .nick, .type-1 .message { color: #839496; }
+/* Notice       */ .type-2 .nick, .type-2 .message { color: #93a1a1; }
+/* Action       */ .type-4 .nick, .type-4 .message { color: #93a1a1; font-style: italic; font-weight: bold; }
+/* Nick         */ .type-8 .nick, .type-8 .message { color: #586e75; }
+/* Mode         */ .type-16 .nick, .type-16 .message { color: #586e75; }
+/* Join         */ .type-32 .nick, .type-32 .message { color: #586e75; }
+/* Part         */ .type-64 .nick, .type-64 .message { color: #586e75; }
+/* Quit         */ .type-128 .nick, .type-128 .message { color: #586e75; }
+/* Kick         */ .type-256 .nick, .type-256 .message { color: #586e75; }
+/* Kill         */ .type-512 .nick, .type-512 .message { color: #586e75; }
+/* Server       */ .type-1024 .nick, .type-1024 .message { color: #93a1a1; }
+/* Info         */ .type-2048 .nick, .type-2048 .message { color: #93a1a1; }
+/* Error        */ .type-4096 .nick, .type-4096 .message { color: #dc322f; }
+/* DayChange    */ .type-8192 .nick, .type-8192 .message { color: #93a1a1; }
+/* Topic        */ .type-16384 .nick, .type-16384 .message { color: #b58900; }
+/* NetsplitJoin */ .type-32768 .nick, .type-32768 .message { color: #586e75; }
+/* NetsplitQuit */ .type-65536 .nick, .type-65536 .message { color: #586e75; }
+/* Invite       */ .type-131072 .nick, .type-131072 .message { color: #586e75; }
+
+
+::-webkit-scrollbar {
+  box-shadow: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255,255,255,.1);
+  box-shadow: none;
+}
+
+.group-name,
+.user-name,
+.network-name { color: #888888; opacity: 1; }
+
+.channel.off { color: #555555; opacity:1; }
+.channel.on { color: #888888; }
+.channel.buffer-newmessage { color: #268bd2; background-image: none; }
+.channel-name { opacity: 1; }
+
+.topic,
+#topic,
+#messagebox,
+.topic .btn.dropdown-toggle,
+#header .btn.logout
+{
+  background: #131313;
+  color: #888888;
+}
+
+#topic {
+  font-family: consolas;
+}
+
+#buffer-pane,
+#nick-pane {
+  background-color: #131313;
+}
+
+
+.buffer-bottom-bar {
+  background-color: #212121;
+}
+
+.user-icon {
+  background-image: none;
+}
+
+.type-1 .nick[data-nickhash="0" ] { color: #B58900; }
+.type-1 .nick[data-nickhash="1" ] { color: #CB4B16; }
+.type-1 .nick[data-nickhash="2" ] { color: #DC322f; }
+.type-1 .nick[data-nickhash="3" ] { color: #D33682; }
+.type-1 .nick[data-nickhash="4" ] { color: #6C71C4; }
+.type-1 .nick[data-nickhash="5" ] { color: #268BD2; }
+.type-1 .nick[data-nickhash="6" ] { color: #2AA198; }
+.type-1 .nick[data-nickhash="7" ] { color: #859900; }
+.type-1 .nick[data-nickhash="8" ] { color: #B58900; }
+.type-1 .nick[data-nickhash="9" ] { color: #CB4B16; }
+.type-1 .nick[data-nickhash="10"] { color: #DC322f; }
+.type-1 .nick[data-nickhash="11"] { color: #D33682; }
+.type-1 .nick[data-nickhash="12"] { color: #6C71C4; }
+.type-1 .nick[data-nickhash="13"] { color: #268BD2; }
+.type-1 .nick[data-nickhash="14"] { color: #2AA198; }
+.type-1 .nick[data-nickhash="15"] { color: #859900; }
+
+#messagebox::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.irc-message a { color: #539FA3; }
+
+.backlog .irc-message.highlighted { background-color: #073642; }
+.backlog .irc-message.highlighted .timestamp,
+.backlog .irc-message.highlighted .nick,
+.backlog .irc-message.highlighted .message { color: #93a1a1; }
