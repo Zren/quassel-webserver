@@ -160,7 +160,9 @@ Views._bufferline = function(type, datetime, sender, content, highlight) {
 	}
 	if (highlight) classes.push("highlighted");
 	return '<li class="'+classes.join(" ")+'">'+
-	'<span class="timestamp"><span>'+Views.utils.HHmmss(datetime)+'</span></span>'+
+	'<span class="timestamp">'+
+	'<time title="'+datetime+'" datetime="'+datetime+'" class="live-timestamp">'+Views.utils.HHmmss(datetime)+'</time>'+
+	'</span>'+
 	'<span class="nick" data-nickhash="'+(Views.utils.nickHash(sender) % 16)+'">'+Views.utils.escapetags(Views.utils.stripnick(sender))+'</span>'+
 	'<span class="message">'+htmlcontent+'</span></li>';
 };
