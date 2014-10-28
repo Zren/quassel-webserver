@@ -265,7 +265,9 @@ Views.addMessage = function(message, callback) {
 
 Views.prependMessage = function(message) {
 	reviver.afterReviving(message, function(obj) {
-		$(".backlog").prepend(Views.getMessage(obj));
+		var messageElement = $(Views.getMessage(obj));
+		$(".backlog").prepend(messageElement);
+		$(".backlog").scrollTop($(".backlog").scrollTop() + messageElement.height());
 	});
 };
 

@@ -247,6 +247,18 @@ socket.on('reconnect', function() {
 });
 
 $(document).ready(function() {
+	var fetchMoreBacklog = function() {
+		var bufferId = parseInt($(".backlog").data('currentBufferId'), 10);
+		if (typeof loadingMoreBacklogs[''+bufferId] === 'undefined' || loadingMoreBacklogs[''+bufferId] === false) {
+			var buffer = networks.findBuffer(bufferId);
+			var firstMessage = Math.min.apply(null, buffer.messages.keys());
+			if ($(".backlog").scrollTop() === 0) {
+				loadingMoreBacklogs[''+bufferId] = true;
+				socket.emit('moreBacklogs', bufferId, firstMessage);
+			}
+		}
+	};
+
 	$(document).on("click", ".expanded", function() {
 		var channel = $(this).data("target");
 		$("#" + channel).css("max-height", "0");
@@ -264,6 +276,9 @@ $(document).ready(function() {
 		var buffer = networks.findBuffer(bufferId);
 		var lastMessageId = Views.showBuffer(buffer);
 		socket.emit('markBufferAsRead', buffer.id, lastMessageId);
+		if ($('.backlog').scrollTop() === 0) {
+			fetchMoreBacklog();
+		}
 	});
 
 	$(document).on("click", ".add-channel", function() {
@@ -362,15 +377,7 @@ $(document).ready(function() {
 
 	$(".backlog").on('mousewheel', function(event) {
 		if (event.deltaY > 0) { // up
-			var bufferId = parseInt($(".backlog").data('currentBufferId'), 10);
-			if (typeof loadingMoreBacklogs[''+bufferId] === 'undefined' || loadingMoreBacklogs[''+bufferId] === false) {
-				var buffer = networks.findBuffer(bufferId);
-				var firstMessage = Math.min.apply(null, buffer.messages.keys());
-				if ($(".backlog").scrollTop() === 0) {
-					loadingMoreBacklogs[''+bufferId] = true;
-					socket.emit('moreBacklogs', bufferId, firstMessage);
-				}
-			}
+			fetchMoreBacklog();
 		}
 	});
 
@@ -428,4 +435,14 @@ $(document).ready(function() {
 	if ($("#host").val() && $("#port").val() && $("#user").val() && $("#password").val()) {
 		$('#logonform').submit();
 	}
+
+	er.on('buffer.backlog', function(next, bufferId, messageIds) {
+		var currentBufferId = parseInt($(".backlog").data('currentBufferId'), 10);
+		if (currentBufferId === bufferId) {
+			if (messageIds.length > 0 && $(".backlog").scrollTop() === 0) {
+				fetchMoreBacklog();
+			}
+		}
+		next();
+	});
 });
