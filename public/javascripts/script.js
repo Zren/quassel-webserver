@@ -355,4 +355,22 @@ $(document).ready(function() {
 	if ($("#host").val() && $("#port").val() && $("#user").val() && $("#password").val()) {
 		$('#logonform').submit();
 	}
+
+	er.on('buffer.order', function(next, bufferId, messageIds) {
+		// Auto select buffer
+		// Show buffer if it is set, and we do not yet have a currentBufferId.
+		var queryBufferId = $.QueryString['bufferId'];
+		var currentBufferId = $(".backlog").data('currentBufferId');
+		if (!currentBufferId && queryBufferId) {
+			queryBufferId = parseInt(queryBufferId, 10);
+			if (bufferId == queryBufferId) {
+				console.log('queryBufferId', queryBufferId);
+				var buffer = networks.findBuffer(bufferId);
+				var lastMessageId = Views.showBuffer(buffer);
+				socket.emit('markBufferAsRead', buffer.id, lastMessageId);
+			}
+		}
+		next();
+	});
+	
 });
