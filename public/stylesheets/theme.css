@@ -115,3 +115,8 @@
 }
 
 .irc-message a { color: #539FA3; }
+
+.backlog .irc-message.highlighted { background-color: #073642; }
+.backlog .irc-message.highlighted .timestamp,
+.backlog .irc-message.highlighted .nick,
+.backlog .irc-message.highlighted .message { color: #93a1a1; }
