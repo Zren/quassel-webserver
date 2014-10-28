@@ -270,10 +270,13 @@ $(document).ready(function() {
 				}
 			}
 		}
+
+		if (unit == 'ms' || unit == 's')
+			return '';
+
 		return Math.floor(n) + unit;
 	};
 	var updateLiveTimestamps = function() {
-		if (window.liveTimestampsTimer) clearTimeout(window.liveTimestampsTimer);
 		console.log('tick');
 		var now = new Date();
 		var mostRecent = 0;
@@ -290,10 +293,9 @@ $(document).ready(function() {
 			// Output
 			$el.text(formatRelativeTimestamp(datetime, now));
 		});
-		var wait = now - mostRecent > 60 * 1000 ? 60 * 1000 : 1000;
-		window.liveTimestampsTimer = setTimeout(updateLiveTimestamps, wait);
 	};
-	window.liveTimestampsTimer = setTimeout(updateLiveTimestamps, 1000);
+	if (window.liveTimestampsTimer) clearInterval(window.liveTimestampsTimer);
+	window.liveTimestampsTimer = setInterval(updateLiveTimestamps, 30 * 1000);
 
 	$(document).on("click", ".expanded", function() {
 		var channel = $(this).data("target");

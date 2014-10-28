@@ -162,7 +162,7 @@ Views._bufferline = function(type, datetime, sender, content, highlight) {
 	if (highlight) classes.push("highlighted");
 	return '<li class="'+classes.join(" ")+'">'+
 	'<span class="timestamp">'+
-	'<time title="'+datetime+'" datetime="'+datetime+'" class="live-timestamp">'+Views.utils.HHmmss(datetime)+'</time>'+
+	'<time title="'+datetime+'" datetime="'+datetime+'" class="live-timestamp"></time>'+
 	'</span>'+
 	'<span class="nick" data-nickhash="'+(Views.utils.nickHash(sender) % 16)+'">'+Views.utils.escapetags(Views.utils.stripnick(sender))+'</span>'+
 	'<span class="message">'+htmlcontent+'</span></li>';
@@ -429,7 +429,7 @@ Views.scrollToBottom = function() {
 
 Views.scrollOnNewMessage = function() {
 	var backlogDom = $('.backlog').get(0);
-	var scrollBottom = backlogDom.scrollHeight - backlogDom.scrollTop - 35;
+	var scrollBottom = backlogDom.scrollHeight - backlogDom.scrollTop;
 	var height = $('.backlog').height();
 	if (scrollBottom <= height) {
 		$(".backlog").scrollTop(backlogDom.scrollHeight);
