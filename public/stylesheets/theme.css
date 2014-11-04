@@ -8,13 +8,13 @@
 }
 
 .network-name, .channel-name, .user-name, .group-name {
-  font-family: consolas;
+  font-family: "Droid Sans Mono",monospace;
   text-overflow: ellipsis;
 }
 
 .backlog {
   background-color: #00212A;
-  font-family: consolas;
+  font-family:"Droid Sans Mono",monospace;
 }
 
 #header {
@@ -76,7 +76,7 @@
 }
 
 #topic {
-  font-family: consolas;
+  font-family: "Droid Sans Mono",monospace;
 }
 
 #buffer-pane,
