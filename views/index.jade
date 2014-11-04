@@ -87,8 +87,8 @@ block body
                 .input
                   form#messageform
                     input#messagebox(type='text', placeholder='Enter your message here')
-            #nick-pane.animation.col-md-2
-              .buffer-container
+            #nick-pane.animation.col-md-0
+              .buffer-container(style='opacity:0;')
                 .user-group
                   span.expanded(data-target='users-operator')
                   span.group-name operators
@@ -102,8 +102,8 @@ block body
                   span.group-name users
                 #users-user.group-users.clearfix
               .buffer-bottom-bar
-                a#hide-nicks.showhide.left
-                a#show-nicks.showhide.left(style='display: none;')
+                a#hide-nicks.showhide.left(style='display: none;')
+                a#show-nicks.showhide.left
             // Modal 
             #modal-join-channel.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
               .modal-dialog
