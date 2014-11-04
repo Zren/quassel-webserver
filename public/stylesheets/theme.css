@@ -120,3 +120,8 @@
 .backlog .irc-message.highlighted .timestamp,
 .backlog .irc-message.highlighted .nick,
 .backlog .irc-message.highlighted .message { color: #93a1a1; }
+
+#buffer-pane.col-md-2,
+#nick-pane.col-md-2 {
+  min-width: 240px;
+}
