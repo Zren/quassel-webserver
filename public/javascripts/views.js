@@ -430,7 +430,7 @@ Views.scrollToBottom = function() {
 Views.scrollOnNewMessage = function() {
 	var backlogDom = $('.backlog').get(0);
 	var scrollBottom = backlogDom.scrollHeight - backlogDom.scrollTop;
-	var height = $('.backlog').height();
+	var height = $('.backlog').height() * 2;
 	if (scrollBottom <= height) {
 		$(".backlog").scrollTop(backlogDom.scrollHeight);
 	}
