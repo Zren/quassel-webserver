@@ -445,6 +445,121 @@ $(document).ready(function() {
 		}
 	});
 
+	// Settings
+	var settings = {
+		themeUrl: {
+			selector: '#settings-theme-url',
+			localStorageKey: 'theme-url',
+			onChange: function(val) {
+				$.get(val, function(data) {
+					$('style#theme-stylesheet').text(data);
+				});
+			}
+		},
+		userStyle: {
+			selector: '#settings-stylesheet-textarea',
+			localStorageKey: 'user-stylesheet',
+			onChange: function(val) {
+				$('style#user-stylesheet').text(val);
+			}
+		},
+		hideInactiveNetworks: {
+			selector: '#settings-hide-inactive-networks',
+			localStorageKey: 'hide-inactive-networks',
+		},
+		hideInactiveChannels: {
+			selector: '#settings-hide-inactive-channels',
+			localStorageKey: 'hide-inactive-channels',
+		},
+	};
+	window.settings = settings;
+
+	function getSettingVal(setting) {
+		console.log('getSettingVal', setting)
+		var val;
+		if (setting.$el.is('input[type="text"], textarea')) {
+			val = setting.$el.val();
+		} else if (setting.$el.is('input[type="checkbox"]')) {
+			val = setting.$el.prop('checked');
+		}
+		return val;
+	}
+
+	function updateSettingStylesheet() {
+		var style = '';
+		if (getSettingVal(settings.hideInactiveNetworks))
+			style += '.network.off, .network.off + .network-channels { display: none; }';
+		if (getSettingVal(settings.hideInactiveChannels))
+			style += '.channel.off { display: none; }';
+		$('style#setting-stylesheet').text(style);
+		console.log('style', style);
+	}
+
+	function serialzeSetting(setting) {
+		var val = getSettingVal(setting);
+		if (typeof val !== 'undefined') {
+			localStorage.setItem(setting.localStorageKey, val);
+		} else {
+			console.error('Unsuported input type. Cannot serialize ', setting);
+		}
+		return val;
+	}
+
+	function unserializeSetting(setting) {
+		var val = localStorage.getItem(setting.localStorageKey);
+		if (setting.$el.is('input[type="text"], textarea')) {
+			setting.$el.val(val);
+		} else if (setting.$el.is('input[type="checkbox"]')) {
+			val = val == 'true'; // default to false
+			setting.$el.prop('checked', val);
+		}
+		return val;
+	}
+
+	function onSettingChange(setting) {
+		console.log('onSettingChange', setting);
+		var val = serialzeSetting(setting);
+		setting.onChange(val);
+	}
+
+	var settingKeys = Object.keys(settings);
+	settingKeys.forEach(function(key) {
+		var setting = settings[key];
+		setting.$el = $(setting.selector);
+		var val = unserializeSetting(setting);
+		if (setting.onChange)
+			setting.onChange(val);
+		setting.$el.on('change', function() {
+			onSettingChange(setting);
+		});
+	});
+
+	settings.hideInactiveNetworks.onChange = updateSettingStylesheet;
+	settings.hideInactiveChannels.onChange = updateSettingStylesheet;
+	updateSettingStylesheet();
+
+	// Settings: Stylesheet
+	// $('#settings-stylesheet-textarea').val(localStorage.getItem('user-stylesheet'));
+
+	// function updateUserStylesheet() {
+	// 	var userStyle = $('#settings-stylesheet-textarea').val();
+	// 	localStorage.setItem('user-stylesheet', userStyle);
+	// 	$('style#user-stylesheet').text(userStyle);
+	// }
+
+	// $('#settings-stylesheet-textarea').on('change', updateUserStylesheet);
+	$(settings.userStyle.selector).on('keydown', function(e) {
+		if (event.ctrlKey || event.metaKey) {
+      switch (String.fromCharCode(event.which).toLowerCase()) {
+      	case 's':
+          event.preventDefault();
+          onSettingChange(settings.userStyle);
+          break;
+      }
+    }
+	});
+
+	// QueryString
 	function setQueryParamOrFocus(queryParamKey, selector) {
 		if ($.QueryString[queryParamKey]) {
 			$(selector).val($.QueryString[queryParamKey]);

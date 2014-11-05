@@ -8,6 +8,7 @@ block body
           | Quassel Web App
           button.btn.btn-default.logout(type="button") Logout
           button.btn.btn-default.reconnect(type="button") Reconnect
+          button.btn.btn-default.settings(type="button", data-toggle="modal", data-target="#modal-settings") Settings
         .container.login
           .row
             .col-md-3
@@ -120,7 +121,46 @@ block body
                   .modal-footer
                     button.btn.btn-default(type='button', data-dismiss='modal') Cancel
                     button.btn.btn-primary(type='button') Join channel
+            // Modal
+            #modal-settings.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+              .modal-dialog.modal-lg
+                .modal-content
+                  .modal-header
+                    button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+                    ul.nav.nav-pills(role='tablist')
+                      li.active(role='presentation')
+                        a(role='pill', data-toggle='pill', href='#settings-main') Settings
+                      li(role='presentation')
+                        a(role='pill', data-toggle='pill', href='#settings-stylesheet') Stylesheet
+                  .modal-body
+                    
+                    .tab-content
+                      #settings-main.tab-pane.active(role='tabpanel')
+                        .form-horizontal
+                          .form-group
+                            .col-sm-offset-2.col-sm-10
+                              .checkbox
+                                label
+                                  input#settings-hide-inactive-networks(type='checkbox')
+                                  | Hide Inactive Networks
+                          .form-group
+                            .col-sm-offset-2.col-sm-10
+                              .checkbox
+                                label
+                                  input#settings-hide-inactive-channels(type='checkbox')
+                                  | Hide Inactive Channels & Queries
+                        
+                      #settings-stylesheet.tab-pane(role='tabpanel')
+                        .form-horizontal
+                          .form-group
+                            label.col-sm-2.control-label Theme
+                            .col-sm-10
+                              input#settings-theme-url.form-control(type='text', placeholder='https://gist.githubusercontent.com/User/GistId/raw/theme.css')
+                        textarea#settings-stylesheet-textarea(placeholder="Custom CSS Eg: .channel.off { display: none; }")
+                  
 
+
+      // Javascripts
       script(src='/javascripts/jquery-1.11.1.min.js')
       script(src='/javascripts/jquery.mousewheel.min.js')
       script(src='/javascripts/bootstrap.min.js')

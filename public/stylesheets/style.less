@@ -382,6 +382,13 @@ ul.backlog {
     .btn {
         width: 100%;
     }
+
+    label {
+        text-transform: uppercase;
+        font-size: 14px;
+        font-family: Roboto;
+        letter-spacing: -1px;
+    }
 }
 
 .connecting #header {
@@ -408,7 +415,7 @@ ul.backlog {
 	.status;
 }
 
-.logout, .reconnect {
+.settings, .logout, .reconnect {
 	float: right;
 	margin: 8px;
 }
@@ -530,4 +537,12 @@ ul.backlog {
 ::-webkit-scrollbar-thumb {
     border-radius: 4px;
     box-shadow: inset 0 0 6px 1px rgba(0,0,0,0.5);
+}
+
+// Settings
+textarea#settings-stylesheet-textarea {
+    width: 100%;
+    resize: vertical;
+    font-family: Droid Sans Mono;
+    min-height: 8em;
 }
